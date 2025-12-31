@@ -3,7 +3,7 @@ import { getOgPalette, type OgTheme } from "@/lib/seo/brand-tokens";
 import { SITE } from "@/config";
 
 export const runtime = "edge";
-export const revalidate = 60 * 60;
+export const revalidate = 3600;
 
 function clamp(input: string, max: number) {
   const s = (input ?? "").trim();

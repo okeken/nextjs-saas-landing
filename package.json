@@ -1,5 +1,5 @@
 {
-  "name": "metallicjs",
+  "name": "seo-nextjs-template",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -22,7 +22,7 @@
   "keywords": [],
   "author": "Kehinde Oke",
   "license": "ISC",
-  "packageManager": "pnpm@9.0.0",
+ "packageManager": "pnpm@10.12.4",
   "devDependencies": {
     "@commitlint/cli": "^19.7.1",
     "@commitlint/config-conventional": "^19.7.1",
