@@ -1,109 +1,215 @@
-# 
-seo-nextjs-starter  Nextjs Starter SaaS Landing Page Template for Next.js (App Router)
+# SEO Next.js Starter – Next.js SaaS Landing Page Template
 
-A **production-ready SaaS landing page** built with **Next.js App Router**, **Tailwind CSS**, and **TypeScript** — with **SEO correctness**, a **professional UI design system**, and **monorepo-friendly structure** baked in.
+A production-ready SaaS landing page built with **Next.js App Router**, **Tailwind CSS**, and **TypeScript** — with **SEO correctness**, a **professional UI design system**, and a **monorepo-friendly** structure baked in.
 
-Clone it, customise it, ship it.
+**Clone it, customise it, ship it.**
+
+> If this repo saves you time, please ⭐️ **star it** — it helps others discover it.
 
 ---
 
-## 🚀 Overview
-
-| Light | Dark |
-|---|---|
+| Light                                                                                                                                               | Dark                                                                                                                                                |
+| --------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
 | ![Light Mode](https://raw.githubusercontent.com/okeken/nextjs-saas-landing/refs/heads/main/apps/web/public/screenshots/nextjs-seo-landing-page.png) | ![Dark Mode](https://raw.githubusercontent.com/okeken/nextjs-saas-landing/refs/heads/main/apps/web/public/screenshots/nextjs-seo-template-dark.png) |
 
+---
 
-This project is **SEO-first**, but it is not a throwaway template.
+## 1-minute local setup
 
-It comes with:
+### Requirements
 
-* a **professional UI design system** (consistent tokens, spacing, components)
-* a **monorepo-friendly structure** (works in Turborepo / pnpm workspaces)
-* a **clean SaaS-ready layout** that scales beyond a single page
+* Node.js >= 20
+* pnpm (recommended via Corepack)
 
-The landing page is intentionally minimal in structure, but **production-grade** in setup — so search engines, performance tools, and teams get exactly what they expect.
+### Run it
+
+```bash
+git clone https://github.com/okeken/nextjs-saas-landing.git
+cd nextjs-saas-landing
+pnpm install
+pnpm dev
+```
+
+Open [http://localhost:3000](http://localhost:3000)
+
+> If you got it running in under 1 minute, consider ⭐️ starring the repo 🙂
 
 ---
 
-## ✨ Features
+## Use This Template 
+
+Fork this repo and make changes:
+
+[https://github.com/okeken/nextjs-saas-landing/fork](https://github.com/okeken/nextjs-saas-landing/fork)
+
+### Option B — Clone
+
+```bash
+git clone https://github.com/okeken/nextjs-saas-landing.git
+```
+
+---
+
+## About This Template
+
+The SEO Next.js Starter helps you quickly set up a robust, SEO-friendly web application using Next.js App Router. It prioritises search engine fundamentals, performance, and a strong UI system so you can move fast without cutting corners.
+
+---
+
+## Features
+
+### SEO-first architecture
+
+* App Router Metadata API (layout and page metadata)
+* Correct Open Graph & Twitter cards
+* `robots.ts` and `sitemap.ts` out of the box
+* Crawl-safe layout structure and performance-friendly defaults
 
 ### Next.js 16 ready
 
-* Built and tested against **Next.js 16 (App Router)**
-* Uses the stable Metadata API, `robots.ts`, and `sitemap.ts`
-* No reliance on deprecated Pages Router patterns
+* Built and tested against Next.js 16 (App Router)
+* Uses stable Metadata API, `robots.ts`, `sitemap.ts`
 
 ### Professional UI design system
 
-This project is backed by a **real, production-grade UI system**:
-
 * Radix UI primitives (accessibility-first)
-* Design tokens & variants via `class-variance-authority`
-* Tailwind CSS + `tailwind-merge`
+* Tailwind CSS with `class-variance-authority` and `tailwind-merge`
 * Icon system with Lucide
-* Form system using React Hook Form + Zod
+* Forms via React Hook Form + Zod
 * Dark / light mode support
 
-The same UI system is used across apps and packages — not rebuilt per project.
+### Monorepo-friendly
 
-### Monorepo-ready architecture
-
-Designed to work naturally inside a **Turborepo / pnpm workspace**:
-
-* Shared UI package (`@metallicjs/ui`)
+* Turborepo / pnpm workspace structure
+* Shared UI package `@metallicjs/ui`
 * Shared utilities & types
-* Clean package boundaries
 * Storybook for isolated UI development
 
-This makes it suitable for real SaaS teams, not just single-page demos.
+### DX & Tooling
 
-### SEO-first architecture (primary)
-
-* App Router metadata API
-* Correct OpenGraph & Twitter cards
-* `robots.ts` and `sitemap.ts`
-* Crawl-safe layout structure
-* Performance-friendly defaults
-
-### Developer experience & tooling (secondary)
-
-* Storybook 9 (runs independently of Next.js)
-
-* UI components developed in isolation
-
-* Vite-powered Storybook for fast feedback
-
-* Playwright & Vitest ready
-
-* Next.js 14+
-
-* TypeScript (strict)
-
-* ESLint + Prettier
-
-* Storybook 9
-
-* Playwright & Vitest ready
+* TypeScript (strict), ESLint, Prettier
+* Storybook 9 (Vite) – runs independently of Next.js
+* Ready for Vitest/Playwright (add tests as needed)
 
 ---
 
-## 📦 Included pages & sections
+## Getting Started
 
-* Navbar
-* Hero
-* Features
-* CTA section
-* Footer
+1. Prerequisites
+
+* Node.js >= 20
+* pnpm (enforced via preinstall). If needed, enable Corepack: `corepack enable`
+
+2. Install and run
+
+```bash
+pnpm install
+pnpm dev
+```
+
+Open [http://localhost:3000](http://localhost:3000)
+
+3. Storybook (UI package)
+
+```bash
+cd packages/ui
+pnpm storybook
+```
+
+Open [http://localhost:6006](http://localhost:6006)
+
+4. Configure environment variables
+
+* Copy the example env file and fill in your values:
+
+```bash
+cp apps/web/.env.example apps/web/.env.local
+```
+
+* Variables:
+
+  * NEXT_PUBLIC_SITE_URL
+  * NEXT_PUBLIC_SITE_NAME
+  * NEXT_PUBLIC_TWITTER_HANDLE
+  * NEXT_PUBLIC_TAG_LINE
+  * NEXT_PUBLIC_CURRENCY (optional, defaults to USD)
+
+5. Optional: edit config directly
+
+* `apps/web/config/index.ts` reads from env and defines `SITE` constants used across the app.
+
+---
+
+## Environment Variables
+
+These are read by the app and used to generate metadata, OG images, robots, and sitemap:
+
+```ini
+# public site url (no trailing slash in production)
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
+
+# your product/brand name
+NEXT_PUBLIC_SITE_NAME=MySaas
+
+# your Twitter/X handle (optional)
+NEXT_PUBLIC_TWITTER_HANDLE=@mysaas
+
+# short tagline used in OG image/footer
+NEXT_PUBLIC_TAG_LINE=Production-ready marketing system
+
+# optional currency code used in pricing/components
+NEXT_PUBLIC_CURRENCY=USD
+```
+
+Place them in `apps/web/.env.local` (for local dev) or configure them in your hosting provider (e.g., Vercel) for production.
+
+### Vercel Environment Variables
+
+1. Open your project in Vercel
+2. Settings → Environment Variables
+3. Add the keys above with appropriate values
+4. Redeploy to apply changes
+
+---
+
+## Technical Details
+
+### Metadata management
+
+* App Router metadata is defined via layout/page exports and dedicated files:
+
+  * `apps/web/app/robots.ts` – disallows crawling in non-production; sets sitemap and host
+  * `apps/web/app/sitemap.ts` – generates entries for static routes and MDX blog posts with accurate `lastModified`
+  * `apps/web/app/layout.tsx` and route-level metadata exports
+
+### Open Graph image generation
+
+* Uses the built-in Next.js OG Image API (`next/og`)
+* Endpoint: `/api/og`
+* Query params:
+
+  * `title` – overrides the default title (clamped to 70 chars)
+  * `subtitle` – optional secondary text (clamped to 120 chars)
+  * `theme` – `dark` | `light` (defaults to `dark`)
+* Example:
+
+  * `/api/og?title=Hello&subtitle=World&theme=light`
+
+---
+
+## Included pages & sections
+
+* Navbar, Hero, Features, CTA, Footer
 * Pricing page example
+* Blog (MDX) scaffold
 
-You can remove or replace sections freely — nothing is coupled.
+You can remove or replace sections freely — nothing is tightly coupled.
 
 ---
 
-## 🗂 Project structure (monorepo-friendly, simplified)
+## Project structure (simplified)
 
-```txt
+```text
 apps/
   web/                # SaaS marketing site (Next.js App Router)
 
@@ -113,91 +219,34 @@ packages/
     hooks/
     lib/
     styles/
-    storybook/
 
   shared/             # shared utilities & types
 ```
 
-The UI package can be reused across multiple apps without modification.
-
 ---
 
-## 🧑‍💻 Getting started
-
-### Run the web app (Next.js 16)
-
-```bash
-pnpm install
-pnpm dev
-```
-
-Open:
-
-[http://localhost:3000](http://localhost:3000)
-
-### Run Storybook (UI package)
-
-```bash
-cd packages/ui
-pnpm storybook
-```
-
-Storybook runs independently at:
-
-[http://localhost:6006](http://localhost:6006)
-
----
-
-## 🛠 Customisation
+## Customisation
 
 Common places you’ll edit:
 
-* `app/(website)/page.tsx` – landing page content
-* `app/(website)/layout.tsx` – metadata & layout
-* `components/` – UI sections
-* `public/` – images, favicons
-* `styles/` – Tailwind & global styles
-
-Nothing here is hidden or locked behind configuration.
+* `apps/web/app/(website)/page.tsx` – landing page content
+* `apps/web/app/(website)/layout.tsx` – metadata & layout
+* `apps/web/app/(website)/_components` – UI sections
+* `apps/web/public` – images, favicons
+* `packages/ui` – shared components/styles (used across apps)
 
 ---
 
-## 🧭 Philosophy
+## Contributing
 
-* SEO correctness before visual polish
-
-* Design systems over ad-hoc UI
-
-* Monorepo-friendly by default
-
-* Free should be production-usable
-
-* Free should be genuinely useful
-
-* Pro should be optional
-
-* No dark patterns
-
-* No artificial limitations
-
-If this helps you ship something real, that’s already success.
+Issues and pull requests are welcome. If you spot something incorrect or missing, please open an issue or PR.
 
 ---
 
-## 🤝 Contributing
-
-Issues and pull requests are welcome.
-If you spot something incorrect or missing, feel free to open a discussion.
-
----
-
-## 📄 License
+## License
 
 MIT License © 2025
 
 ---
 
-### Made with care by an indie builder
-
-If you find this useful in your work, feel free to ⭐️ the repository — it helps others discover it and keeps the project moving.
-
+Made with care by an indie builder. If this helps, a ⭐️ helps others discover it!
