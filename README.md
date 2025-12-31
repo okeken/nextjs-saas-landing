@@ -1,4 +1,5 @@
-# SEO-Ready SaaS Landing Page Template for Next.js (App Router)
+# 
+seo-nextjs-starter  Nextjs Starter SaaS Landing Page Template for Next.js (App Router)
 
 A **production-ready SaaS landing page** built with **Next.js App Router**, **Tailwind CSS**, and **TypeScript** — with **SEO correctness**, a **professional UI design system**, and **monorepo-friendly structure** baked in.
 
@@ -7,6 +8,11 @@ Clone it, customise it, ship it.
 ---
 
 ## 🚀 Overview
+
+| Light | Dark |
+|---|---|
+| ![Light Mode](https://raw.githubusercontent.com/okeken/nextjs-saas-landing/refs/heads/main/apps/web/public/screenshots/nextjs-seo-landing-page.png) | ![Dark Mode](https://raw.githubusercontent.com/okeken/nextjs-saas-landing/refs/heads/main/apps/web/public/screenshots/nextjs-seo-template-dark.png) |
+
 
 This project is **SEO-first**, but it is not a throwaway template.
 

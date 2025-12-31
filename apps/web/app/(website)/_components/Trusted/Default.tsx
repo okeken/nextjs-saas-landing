@@ -21,7 +21,7 @@ export default function MarqueeCenter({
    <>
     <section
       className={cn(
-        "bg-gray-200 lg:py-10 md:py-10   py-6",
+        "dark:bg-gray-200 lg:py-10 md:py-10   py-6",
         className
       )}
     >    
