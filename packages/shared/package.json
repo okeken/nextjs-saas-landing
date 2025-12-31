@@ -1,0 +1,71 @@
+{
+  "private": true,
+  "name": "@metallicjs/shared",
+  "version": "0.0.0",
+  "description": "Shared configurations for TypeScript, ESLint, and other tools",
+  "keywords": [
+    "config",
+    "typescript",
+    "eslint"
+  ],
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "exports": {
+    ".": "./index.ts",
+    "./config": "./config/index.ts",
+    "./client-config": "./client-config.ts",
+    "./config/logger": "./config/logger/index.ts",
+    "./config/*": "./config/*",
+    "./utils": "./utils/index.ts",
+    "./utils/ApiError": "./utils/ApiError.ts",
+    "./utils/*": "./utils/*",
+    "./constants/url": "./constants/url/index.ts",
+    "./constants/url/client": "./constants/url/client/index.ts",
+    "./constants/url/api": "./constants/url/api/index.ts",
+    "./meta/types": "./meta/types/index.ts",
+    "./meta/schemas": "./meta/schemas.ts",
+    "./validations": "./validations.ts",
+    "./typescript-config/base": "./typescript-config/base.json",
+    "./typescript-config/nextjs": "./typescript-config/nextjs.json",
+    "./typescript-config/react-library": "./typescript-config/react-library.json",
+    "./typescript-config/node": "./typescript-config/node.json",
+    "./eslint-config/base": "./eslint-config/base.js",
+    "./eslint-config/react": "./eslint-config/react.js",
+    "./eslint-config/next": "./eslint-config/next.js",
+    "./eslint-config/node": "./eslint-config/node.js",
+    "./eslint-config/react-internal": "./eslint-config/react-internal.js"
+  },
+  "files": [
+    "index.ts",
+    "typescript-config",
+    "eslint-config",
+    "config",
+    "constants",
+    "utils"
+  ],
+  "dependencies": {
+    "@paralleldrive/cuid2": "^2.2.2",
+    "bcryptjs": "2.4.3",
+    "dotenv": "^16.0.3",
+    "path": "^0.12.7",
+    "winston": "3.8.2"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.0.0",
+    "@next/eslint-plugin-next": "^15.0.0",
+    "@types/bcryptjs": "2.4.2",
+    "@types/node": "^20",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
+    "@typescript-eslint/parser": "^8.0.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-import": "^2.29.0",
+    "eslint-plugin-jsx-a11y": "^6.8.0",
+    "eslint-plugin-only-warn": "^1.1.0",
+    "eslint-plugin-react": "^7.33.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-turbo": "^2.0.0",
+    "globals": "^15.0.0",
+    "typescript": "^5.0.0",
+    "typescript-eslint": "^8.0.0"
+  }
+}

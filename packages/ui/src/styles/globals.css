@@ -1,0 +1,662 @@
+/* ============================================================================
+   MetallicJS Design Tokens & Form Overrides 
+   ============================================================================
+
+   This block explains how this CSS file works.
+
+-------------------------------------------------------------------------------
+TABLE OF CONTENTS
+-------------------------------------------------------------------------------
+  1) Purpose of this file
+  2) How theming works (light/dark + tokens → Tailwind utilities)
+  3) Imports & special at-rules
+  4) Form overrides (OTP + Phone input)
+  5) Tokens (primitives & semantics)
+  6) Dark mode semantics
+  7) Tailwind exposure via @theme inline
+  8) Base layer defaults
+  9) Usage patterns (quick recipes)
+ 10) Extending/customizing tokens
+ 11) Accessibility notes
+ 12) Troubleshooting
+
+-------------------------------------------------------------------------------
+1) PURPOSE OF THIS FILE
+-------------------------------------------------------------------------------
+• Defines a full design token system (colors, surfaces, states, shadows, radius).
+• Provides semantic aliases (e.g. --background, --foreground) so apps use consistent tokens.
+• Exposes tokens to Tailwind as classes (e.g. bg-background, text-foreground).
+• Normalizes forms: OTP input & 3rd-party phone input.
+• Provides light & dark themes with consistent contrasts.
+
+-------------------------------------------------------------------------------
+2) HOW THEMING WORKS
+-------------------------------------------------------------------------------
+• :root contains BASE (light) tokens.
+• .dark overrides semantic tokens for dark mode.
+• Tailwind consumes tokens via @theme inline mapping.
+• You enable dark mode by adding `.dark` to <html> or <body>.
+
+-------------------------------------------------------------------------------
+3) IMPORTS & SPECIAL AT-RULES
+-------------------------------------------------------------------------------
+• @import 'tailwindcss' – brings in Tailwind core.
+• @import 'tw-animate-css' – animation presets.
+• @source – tells Tailwind JIT where to look for class usage in a monorepo.
+• @custom-variant dark – adds a Tailwind-like `dark:` variant scoped by `.dark`.
+• @theme inline – maps CSS variables to Tailwind theme tokens.
+
+-------------------------------------------------------------------------------
+5) TOKENS (PRIMITIVES & SEMANTICS)
+-------------------------------------------------------------------------------
+• Primitives = raw scales: --gray-0…900, --primary-*, --secondary-*, --error-*,
+  --success-*, --warning-*, --chart-*, --radius.
+• Semantics = actual usage: --background, --foreground, --card, --popover,
+  --primary, --secondary, --muted, --accent, --destructive, etc.
+• Always use semantics in UI. Use primitives only when creating new tokens.
+
+-------------------------------------------------------------------------------
+6) DARK MODE SEMANTICS
+-------------------------------------------------------------------------------
+• .dark overrides semantic tokens, not raw primitives.
+• Background → near black, Foreground → near white.
+• Links: softened in dark to reduce glare.
+• Shadows & overlays adjusted for dark depth perception.
+
+-------------------------------------------------------------------------------
+7) TAILWIND EXPOSURE
+-------------------------------------------------------------------------------
+• @theme inline maps tokens to Tailwind colors:
+   bg-background → var(--background)
+   text-foreground → var(--foreground)
+   border → var(--border)
+   ring → var(--ring)
+• Scales (primary-100…900, gray-100…900, etc.) exposed for granular use.
+• Short aliases: text-default, text-muted, text-strong, text-inverse.
+
+-------------------------------------------------------------------------------
+8) BASE LAYER
+-------------------------------------------------------------------------------
+• Sets default outline-color = --ring, border-color = --border.
+• Body font-family = --font-satoshi.
+• Applies bg-background and text-foreground globally.
+
+-------------------------------------------------------------------------------
+9) USAGE PATTERNS (QUICK RECIPES)
+-------------------------------------------------------------------------------
+• Page shell: <main class="bg-background text-foreground">…</main>
+• Card: <div class="bg-card text-card-foreground border rounded-lg">…</div>
+• Muted text: <p class="text-muted">Secondary info</p>
+• Focus ring for custom element: box-shadow: 0 0 0 2px var(--ring);
+
+-------------------------------------------------------------------------------
+10) EXTENDING / CUSTOMIZING
+-------------------------------------------------------------------------------
+• Add a brand: define --brand-100…900, map to --tertiary in @theme inline.
+• Add a surface: define --surface-6, override in .dark, map in @theme inline.
+• Adjust --radius to cascade across sm/md/lg/xl radii.
+
+-------------------------------------------------------------------------------
+11) ACCESSIBILITY NOTES
+-------------------------------------------------------------------------------
+• Foreground colors meet ≥4.5:1 contrast.
+• Warning foreground uses dark text on yellow for readability.
+• Use semantic tokens to guarantee proper contrast in light/dark.
+
+-------------------------------------------------------------------------------
+12) TROUBLESHOOTING
+-------------------------------------------------------------------------------
+• Dark mode not working → check `.dark` class placement + semantic usage.
+• Modal overlay too light/dark → tweak --overlay-alpha per theme.
+• Chrome autofill yellow → neutralized via input:-webkit-autofill rule here.
+• Phone input still styled → ensure wrapper `.custom-phone-input` is applied.
+
+
+-------------------------------------------------------------------------------
+IMPLEMENTATION NOTE
+-------------------------------------------------------------------------------
+• Stick to semantic classes (bg-background, text-foreground, border, ring).
+• Modify primitives (grays, brand scales) when retuning the design system.
+• Ays update both :root and .dark when adding a new token.
+
+============================================================================ */
+
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "./theme.css";
+@source "../../../apps/**/*.{ts,tsx}";
+@source "../../../components/**/*.{ts,tsx}";
+@source "../**/*.{ts,tsx}";
+
+@custom-variant dark (&:is(.dark *));
+
+/* =============================
+   COMPONENT OVERRIDES (forms)
+   ============================= */
+
+/* OTP inputs: semantic tokens */
+input[type="text"].otp-input {
+  @apply w-12 h-12 text-xl text-center border rounded-md bg-surface-3 text-foreground border-input focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent placeholder:text-muted-foreground/70;
+  @apply w-12 h-12 text-xl text-center border rounded-md bg-surface-3 text-foreground border-input focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent placeholder:text-muted-foreground/70;
+}
+
+/* Optional error state (aria-invalid from form lib) */
+input[type="text"].otp-input[aria-invalid="true"] {
+  @apply border-destructive;
+  box-shadow: 0 0 0 2px var(--destructive) inset;
+}
+
+/* Normalized placeholder for native inputs */
+input::placeholder,
+textarea::placeholder {
+  color: var(--color-placeholder);
+  opacity: 1;
+}
+
+/* Dim placeholder when the control is disabled */
+input:disabled::placeholder,
+textarea:disabled::placeholder {
+  color: var(--muted-foreground);
+}
+input:-webkit-autofill {
+  box-shadow: 0 0 0 1000px var(--color-background) inset !important;
+  -webkit-text-fill-color: var(--color-content-primary) !important;
+  caret-color: var(--color-content-primary);
+}
+
+/* =============================
+   TOKENS (primitives + semantics)
+   ============================= */
+:root {
+  /* System preferences */
+  color-scheme: light;
+  accent-color: var(--primary);
+
+  /* Typeface */
+  --font-satoshi: "Satoshi", system-ui, -apple-system, Segoe UI, Roboto, Ubuntu,
+    Cantarell, "Helvetica Neue", Arial, sans-serif;
+
+  /* Greys */
+  --gray-0: #ffffff;
+  --gray-25: #fcfcfd;
+  --gray-50: #f9fafb;
+  --gray-100: #f5f5f5;
+  --gray-200: #ebebeb;
+  --gray-300: #cccccc;
+  --gray-400: #a3a3a3;
+  --gray-500: #7a7a7a;
+  --gray-600: #525252;
+  --gray-700: #232323;
+  --gray-800: #141414;
+  --gray-900: #0a0a0a;
+
+  /* Brand – Primary  - Supplied from theme.css */
+
+  /* Brand – Secondary (orange) */
+  --secondary-100: #fff5eb;
+  --secondary-200: #ffe1c2;
+  --secondary-300: #ffc485;
+  --secondary-400: #ffa647;
+  --secondary-500: #ffb05c;
+  --secondary-600: #ff9c33;
+  --secondary-700: #ff8200;
+  --secondary-800: #b85f00;
+  --secondary-900: #663500;
+
+  /* Success */
+  --success-25: #f6fef9;
+  --success-50: #ecfdf3;
+  --success-100: #d1fadf;
+  --success-200: #a6f4c5;
+  --success-300: #85ec83;
+  --success-400: #62e660;
+  --success-500: #2ede2b;
+  --success-600: #1eaf1b;
+  --success-700: #188d16;
+  --success-800: #126a11;
+  --success-900: #093508;
+
+  /* Error */
+  --error-25: #fffbfa;
+  --error-50: #fef3f2;
+  --error-100: #fddede;
+  --error-200: #fbb2b2;
+  --error-300: #f77878;
+  --error-400: #f55151;
+  --error-500: #fb2b2b;
+  --error-600: #f11111;
+  --error-700: #c10b0b;
+  --error-800: #ae0a0a;
+  --error-900: #600606;
+
+  /* Warning */
+  --warning-25: #fffcf5;
+  --warning-50: #fffaeb;
+  --warning-100: #fef0c7;
+  --warning-200: #fceac5;
+  --warning-300: #fadb9e;
+  --warning-400: #f9d48b;
+  --warning-500: #f6bf51;
+  --warning-600: #f3a811;
+  --warning-700: #c28508;
+  --warning-800: #885d07;
+  --warning-900: #614205;
+
+  /* Charts/radius */
+  --radius: 0.625rem;
+
+  /* Surfaces (neutrals) */
+  --surface-1: var(--gray-0); /* page base */
+  --surface-2: var(--gray-50); /* panels/sections */
+  --surface-3: var(--gray-100); /* cards/toolbars */
+  --surface-4: var(--gray-200); /* headers/stripes */
+  --surface-5: var(--gray-300); /* dividers/raised bg */
+
+  /* Overlays & modal shadows */
+  --overlay-alpha: 0.4; /* lighter in light */
+
+  --overlay: rgb(from var(--surface-5) r g b / var(--overlay-alpha));
+  --shadow-soft: 0.05;
+  --shadow-ambient: 0.06;
+  --shadow-umbra: 0.12;
+  --modal-shadow: 0 1px 2px
+      rgb(from var(--gray-900) r g b / var(--shadow-ambient)),
+    0 16px 48px rgb(from var(--gray-900) r g b / var(--shadow-umbra));
+  --card-shadow: 0 1px 2px rgb(from var(--gray-900) r g b / var(--shadow-soft));
+
+  /* Semantic backgrounds & content */
+  --background: var(--surface-2);
+  --foreground: var(--gray-800);
+  --card: var(--surface-1);
+  --card-foreground: var(--gray-800);
+  --popover: var(--surface-1);
+  --popover-foreground: var(--gray-900);
+
+  /* Accents (as surfaces) */
+  --primary: var(--primary-700);
+  --primary-foreground: #ffffff;
+  --secondary: var(--secondary-700);
+  --secondary-foreground: #ffffff;
+
+  /* Neutrals + UI */
+  --muted: var(--gray-50);
+  --muted-foreground: var(--gray-600);
+  --accent: var(--gray-50);
+  --accent-foreground: var(--gray-700);
+
+  /* State surfaces */
+  --destructive: var(--error-600);
+  --destructive-foreground: #ffffff;
+  --success: var(--success-600);
+  --success-foreground: #ffffff;
+  --warning: var(--warning-600);
+  --warning-foreground: #0a0a0a;
+
+  --border: var(--gray-300);
+  --input: var(--gray-300);
+  --ring: var(--primary-200);
+
+  /* Sidebar */
+  --sidebar: var(--gray-25);
+  --sidebar-foreground: var(--gray-700);
+  --sidebar-primary: var(--primary-700);
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: var(--gray-50);
+  --sidebar-accent-foreground: var(--gray-700);
+  --sidebar-border: var(--gray-200);
+  --sidebar-ring: var(--primary-200);
+
+  /* Background (Designer: Background) */
+  --background-primary: var(--background); /* G-0 */
+  --background-secondary: var(--surface-2); /* G-50 */
+
+  /* Content (Designer: Content) */
+  --content-primary: var(--foreground); /* body text (G-700) */
+  --content-secondary: var(--muted-foreground); /* secondary (G-600) */
+  --content-strong: var(--gray-900);
+  --content-inverse: var(--gray-0);
+
+  /* Links (Designer: Link) */
+  --link-default: var(--primary-700);
+  --link-hover: var(--primary-800);
+  --link-visited: var(--primary-600);
+
+  /* Border/Divider (Designer: Border) */
+  --border-primary: var(--border); /* default */
+  --border-strong: var(--gray-300);
+  --divider: var(--surface-5);
+
+  /* Placeholder (Designer: Placeholder) */
+  --placeholder: var(--muted-foreground);
+}
+
+/* =============================
+   DARK MODE SEMANTICS
+   ============================= */
+.dark {
+  color-scheme: dark;
+  accent-color: var(--primary);
+
+  /* Surfaces (neutrals) in dark */
+  --surface-1: var(--gray-900); /* page base (#0a0a0a) */
+  --surface-2: var(--gray-800); /* cards/sections (#141414) */
+  --surface-3: var(--gray-700); /* popovers/modals/tooltips (#232323) */
+  --surface-4: var(--gray-600);
+  --surface-5: var(--gray-500);
+  --surface-6: var(--gray-400);
+  --surface-7: var(--gray-300);
+  --surface-8: var(--gray-200);
+  --surface-9: var(--gray-50);
+
+  /* Backdrop & shadows: a bit stronger in dark to add depth */
+  --overlay-alpha: 0.55;
+  --overlay: rgb(from var(--gray-900) r g b / var(--overlay-alpha));
+  --shadow-ambient: 0.3;
+  --shadow-umbra: 0.6;
+  --modal-shadow: 0 1px 2px
+      rgb(from var(--gray-900) r g b / var(--shadow-ambient)),
+    0 16px 48px rgb(from var(--gray-900) r g b / var(--shadow-umbra));
+
+  /* Optional brand-tinted surfaces (keep, but use sparingly) */
+  --surface-accent-subtle: #2a1116;
+  --surface-accent-soft: #3a151c;
+
+  /* Semantic surfaces */
+  --background: var(--surface-1); /* page */
+  --foreground: var(--gray-300); /* body text */
+  --card: var(--surface-3); /* card */
+  --foreground: var(--gray-300); /* body text */
+  --card: color-mix(in srgb, var(--surface-2) 50%, transparent); /* card */
+  --card-foreground: var(--gray-0);
+  --popover: var(--surface-2); /* modal/popover */
+  --popover-foreground: var(--gray-0);
+
+  /* Brand accents */
+  --primary: var(--primary-600);
+  --primary-foreground: #ffffff;
+  --secondary: var(--secondary-600);
+  --secondary-foreground: #0a0a0a; /* orange reads well with dark text */
+
+  /* Neutrals + UI */
+  --muted: var(--gray-800);
+  --muted-foreground: var(--gray-300);
+  --accent: var(--gray-800);
+  --accent-foreground: var(--gray-0);
+
+  /* State surfaces */
+  --destructive: var(--error-400);
+  --destructive-foreground: #ffffff;
+  --success: var(--success-600);
+  --success-foreground: #ffffff;
+  --warning: var(--warning-600);
+  --warning-foreground: #0a0a0a;
+
+  /* Controls */
+  --border: var(--gray-600); /* subtle hairline */
+  --input: var(--gray-600);
+  --ring: var(--primary-400); /* brighter ring in dark */
+
+  /* Sidebar */
+  --sidebar: var(--gray-800);
+  --sidebar-foreground: var(--gray-0);
+  --sidebar-primary: var(--primary-600);
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: var(--gray-800);
+  --sidebar-accent-foreground: var(--gray-0);
+  --sidebar-border: var(--gray-700);
+  --sidebar-ring: var(--primary-400);
+
+  /* Spec-style aliases */
+  --background-primary: var(--background); /* G-900 */
+  --background-secondary: var(--surface-2); /* G-800 */
+
+  --content-primary: var(--foreground); /* G-0 */
+  --content-secondary: var(--muted-foreground);
+  --content-strong: var(--gray-0);
+  --content-inverse: var(--gray-900);
+
+  --link-default: var(--primary-300);
+  --link-hover: var(--primary-200);
+  --link-visited: var(--primary-400);
+
+  --border-primary: var(--border);
+  --border-strong: var(--gray-600);
+  --divider: var(--surface-5);
+
+  --placeholder: var(--muted-foreground);
+  --neutral-subtle: var(--gray-500);
+}
+
+/* =============================
+EXPOSE TO TAILWIND (@theme)
+============================= */
+@theme inline {
+  --color-overlay: var(--overlay); /* bg-overlay */
+  --shadow-modal: var(--modal-shadow); /* shadow-modal */
+
+  /* Screens */
+  --breakpoint-xsm: 380px;
+  --breakpoint-xs: 480px;
+
+  /* Surfaces */
+  --color-surface-1: var(--surface-1);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-surface-4: var(--surface-4);
+  --color-surface-5: var(--surface-5);
+  --color-surface-6: var(--surface-6);
+  --color-surface-7: var(--surface-7);
+  --color-surface-8: var(--surface-8);
+  --color-surface-9: var(--surface-9);
+  --color-surface-accent-subtle: var(--surface-accent-subtle);
+  --color-surface-accent-soft: var(--surface-accent-soft);
+
+  /* Semantics */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --color-success: var(--success);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-neutral-subtle: var(--neutral-subtle);
+
+  /* Scales */
+  --color-primary-100: var(--primary-100);
+  --color-primary-200: var(--primary-200);
+  --color-primary-300: var(--primary-300);
+  --color-primary-400: var(--primary-400);
+  --color-primary-500: var(--primary-500);
+  --color-primary-600: var(--primary-600);
+  --color-primary-700: var(--primary-700);
+  --color-primary-800: var(--primary-800);
+  --color-primary-900: var(--primary-900);
+
+  --color-secondary-100: var(--secondary-100);
+  --color-secondary-200: var(--secondary-200);
+  --color-secondary-300: var(--secondary-300);
+  --color-secondary-400: var(--secondary-400);
+  --color-secondary-500: var(--secondary-500);
+  --color-secondary-600: var(--secondary-600);
+  --color-secondary-700: var(--secondary-700);
+  --color-secondary-800: var(--secondary-800);
+  --color-secondary-900: var(--secondary-900);
+
+  --color-gray-0: var(--gray-0);
+  --color-gray-25: var(--gray-25);
+  --color-gray-50: var(--gray-50);
+  --color-gray-100: var(--gray-100);
+  --color-gray-200: var(--gray-200);
+  --color-gray-300: var(--gray-300);
+  --color-gray-400: var(--gray-400);
+  --color-gray-500: var(--gray-500);
+  --color-gray-600: var(--gray-600);
+  --color-gray-700: var(--gray-700);
+  --color-gray-800: var(--gray-800);
+  --color-gray-900: var(--gray-900);
+
+  --color-success-25: var(--success-25);
+  --color-success-50: var(--success-50);
+  --color-success-100: var(--success-100);
+  --color-success-200: var(--success-200);
+  --color-success-300: var(--success-300);
+  --color-success-400: var(--success-400);
+  --color-success-500: var(--success-500);
+  --color-success-600: var(--success-600);
+  --color-success-700: var(--success-700);
+  --color-success-800: var(--success-800);
+  --color-success-900: var(--success-900);
+
+  --color-error-25: var(--error-25);
+  --color-error-50: var(--error-50);
+  --color-error-100: var(--error-100);
+  --color-error-200: var(--error-200);
+  --color-error-300: var(--error-300);
+  --color-error-400: var(--error-400);
+  --color-error-500: var(--error-500);
+  --color-error-600: var(--error-600);
+  --color-error-700: var(--error-700);
+  --color-error-800: var(--error-800);
+  --color-error-900: var(--error-900);
+
+  --color-destructive-25: var(--error-25);
+  --color-destructive-50: var(--error-50);
+  --color-destructive-100: var(--error-100);
+  --color-destructive-200: var(--error-200);
+  --color-destructive-300: var(--error-300);
+  --color-destructive-400: var(--error-400);
+  --color-destructive-500: var(--error-500);
+  --color-destructive-600: var(--error-600);
+  --color-destructive-700: var(--error-700);
+  --color-destructive-800: var(--error-800);
+  --color-destructive-900: var(--error-900);
+
+  --color-warning-25: var(--warning-25);
+  --color-warning-50: var(--warning-50);
+  --color-warning-100: var(--warning-100);
+  --color-warning-200: var(--warning-200);
+  --color-warning-300: var(--warning-300);
+  --color-warning-400: var(--warning-400);
+  --color-warning-500: var(--warning-500);
+  --color-warning-600: var(--warning-600);
+  --color-warning-700: var(--warning-700);
+  --color-warning-800: var(--warning-800);
+  --color-warning-900: var(--warning-900);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  /* Sidebar */
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --color-background-primary: var(--background-primary);
+  --color-background-secondary: var(--background-secondary);
+
+  /* Content (spec) */
+  --color-content-primary: var(--content-primary);
+  --color-content-secondary: var(--content-secondary);
+  --color-content-strong: var(--content-strong);
+  --color-content-inverse: var(--content-inverse);
+  --color-link: var(--link-default);
+  --color-link-hover: var(--link-hover);
+  --color-link-visited: var(--link-visited);
+
+  --color-border-primary: var(--border-primary);
+  --color-border-strong: var(--border-strong);
+  --color-divider: var(--divider);
+
+  --color-placeholder: var(--placeholder);
+
+  --color-default: var(--content-primary); /* text-default */
+  --color-muted: var(--content-secondary); /* text-muted  */
+  --color-strong: var(--content-strong); /* text-strong */
+  --color-inverse: var(--content-inverse); /* text-inverse */
+
+  --color-border-default: var(--border-primary);
+}
+
+/* =============================
+BASE LAYER
+============================= */
+@layer base {
+  * {
+    outline-color: var(--ring);
+    border-color: var(--border);
+  }
+  body {
+    font-family: var(--font-satoshi);
+    @apply bg-card text-foreground;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer utilities {
+  .dark .text-primary {
+    color: color-mix(
+      in srgb,
+      var(--primary) 40%,
+      white
+    ); /* 80% primary + 20% white */
+  }
+
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+}
+
+.testimonial-mask {
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 12%,
+    black 88%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 12%,
+    black 88%,
+    transparent 100%
+  );
+}

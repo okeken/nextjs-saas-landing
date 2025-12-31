@@ -1,0 +1,17 @@
+node_modules
+**/node_modules/
+**/.env
+**/.env.*
+**/.env.*
+!**/.env.example
+**/dist/
+**/build/
+pnpm-lock.yaml
+**/.note
+.DS_Store
+.idea
+*.pem
+apps/*/.next
+.eslintcache
+*storybook.log
+storybook-static

@@ -1,0 +1,60 @@
+{
+  "name": "metallicjs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "gen:og": "node scripts/gen-og-from-ui.mjs",
+    "test": "echo \"Error: no test specified\"",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "prepare": "husky && husky install",
+    "preinstall": "npx only-allow pnpm",
+    "dev": "pnpm run gen:og && pnpm --filter @web/dev dev"
+  },
+  "type": "module",
+  "lint-staged": {
+    "**/*.{js,ts,tsx}": [
+      "eslint --fix"
+    ],
+    "**/*": "prettier --write --ignore-unknown"
+  },
+  "keywords": [],
+  "author": "Kehinde Oke",
+  "license": "ISC",
+  "packageManager": "pnpm@9.0.0",
+  "devDependencies": {
+    "@commitlint/cli": "^19.7.1",
+    "@commitlint/config-conventional": "^19.7.1",
+    "@eslint/js": "^9.20.0",
+    "@types/node": "^22.13.4",
+    "eslint": "^9.21.0",
+    "eslint-config-prettier": "^10.0.1",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-prettier": "^5.2.3",
+    "globals": "^15.14.0",
+    "husky": "^8.0.0",
+    "lint-staged": "^15.4.3",
+    "prettier": "2.8.1",
+    "tsx": "^4.20.3",
+    "turbo": "^2.4.4",
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.24.0",
+    "vite-tsconfig-paths": "^5.1.4"
+  },
+  "dependencies": {
+    "@metallicjs/shared": "workspace:*",
+    "zod": "^4.0.10"
+  },
+  "pnpm": {
+    "overrides": {
+      "react": "^19.1.0",
+      "react-dom": "^19.1.0",
+      "@types/react": "^19.1.6",
+      "@types/react-dom": "^19.1.6"
+    }
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

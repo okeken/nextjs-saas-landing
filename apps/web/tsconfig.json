@@ -1,0 +1,28 @@
+{
+  "extends": "@metallicjs/shared/typescript-config/nextjs",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "jsx": "preserve",
+    "paths": {
+      "@/*": ["./*"],
+      "@website/*": ["./app/(website)/*"],
+      "@metallicjs/ui/*": ["../../packages/ui/src/*"]
+    },
+
+    "types": ["node"],
+    "moduleResolution": "node",
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
+  },
+  "include": [
+    "next-env.d.ts",
+    "next.config.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": ["node_modules"]
+}

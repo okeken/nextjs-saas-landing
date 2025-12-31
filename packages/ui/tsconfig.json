@@ -1,0 +1,13 @@
+{
+  "extends": "@metallicjs/shared/typescript-config/react-library",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@metallicjs/ui/*": ["./src/*"]
+    },
+    "moduleResolution": "node"
+  },
+  "include": [".", "src", "turbo"],
+  "exclude": ["node_modules", "dist"]
+}

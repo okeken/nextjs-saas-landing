@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 96" role="img" aria-label="Microsoft">
+  <style>
+    :root { --word: #0f172a; } /* slate-900-ish for light */
+    @media (prefers-color-scheme: dark) {
+      :root { --word: #ffffff; }
+    }
+  </style>
+
+  <!-- 4 squares (brand colors fixed) -->
+  <g transform="translate(0,8)">
+    <rect x="0" y="0" width="32" height="32" fill="#F25022"/>
+    <rect x="36" y="0" width="32" height="32" fill="#7FBA00"/>
+    <rect x="0" y="36" width="32" height="32" fill="#00A4EF"/>
+    <rect x="36" y="36" width="32" height="32" fill="#FFB900"/>
+  </g>
+
+  <!-- word (auto theme) -->
+  <text
+    x="96"
+    y="62"
+    fill="var(--word)"
+    font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial"
+    font-size="44"
+    font-weight="600"
+    letter-spacing="-0.5"
+  >
+    Microsoft
+  </text>
+</svg>
