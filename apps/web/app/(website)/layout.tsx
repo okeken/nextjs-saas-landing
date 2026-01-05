@@ -42,6 +42,13 @@ export default function WebsiteLayout({
   type="image/webp"
   fetchPriority="high"
 />
+ <link
+  rel="preload"
+  href="/assets/website/works-dashboard.webp"
+  as="image"
+  type="image/webp"
+  fetchPriority="high"
+/>
 
      <Navbar />
       <JsonLd data={organizationJsonLd()} />
