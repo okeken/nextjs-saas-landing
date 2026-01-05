@@ -1,11 +1,16 @@
 import { SITE } from "@/config";
+import type {
+  Organization,
+  WebSite,
+  SoftwareApplication,
+  WithContext,
+} from "schema-dts";
 
-type SameAs = string[];
 
 export function organizationJsonLd(args?: {
   logoUrl?: string;
-  sameAs?: SameAs;
-}) {
+  sameAs?: string[];
+}): WithContext<Organization> {
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
@@ -17,7 +22,7 @@ export function organizationJsonLd(args?: {
   };
 }
 
-export function websiteJsonLd() {
+export function websiteJsonLd(): WithContext<WebSite> {
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",
@@ -36,7 +41,7 @@ export function softwareAppJsonLd(args?: {
   description?: string;
   url?: string;
   category?: string; // BusinessApplication
-}) {
+}): WithContext<SoftwareApplication> {
   return {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",

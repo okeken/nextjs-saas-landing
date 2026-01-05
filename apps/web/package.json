@@ -29,7 +29,8 @@
     "react-dom": "^19.0.0",
     "react-fast-marquee": "^1.6.5",
     "react-hook-form": "^7.57.0",
-    "react-hot-toast": "^2.5.2"
+    "react-hot-toast": "^2.5.2",
+    "schema-dts": "^1.1.5"
   },
   "devDependencies": {
     "@metallicjs/shared": "workspace:^",
