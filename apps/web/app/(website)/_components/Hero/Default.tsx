@@ -1,5 +1,6 @@
 import { Button } from "@metallicjs/ui/components/button";
 import { cn } from "@metallicjs/ui/lib/utils";
+import Image from "next/image";
 
 export default function MarketingClean() {
   return (
@@ -22,8 +23,15 @@ export default function MarketingClean() {
               "border border-border/60 bg-background/80 backdrop-blur",
               "dark:bg-background/40 dark:border-border/40"
             )}
-          >
-            <img src="/assets/website/hurray.png" alt="" className="h-4 w-4" />
+          >        
+            <Image
+  src="/assets/website/hurray.png"
+  alt="jubilatory icon"
+  width={16}
+  height={16}
+  className="h-4 w-4"
+/>
+        
             <p className="text-xs sm:text-sm text-foreground/90 dark:text-foreground">
               Next.js SaaS template — fast, clean, and SEO-ready
             </p>
@@ -68,11 +76,14 @@ export default function MarketingClean() {
               "dark:ring-border/40 dark:shadow-[0_30px_90px_-55px_rgba(0,0,0,0.9)]"
             )}
           >
-            <img
-              src="/assets/website/hero.webp"
-              alt=""
-              className="w-full h-auto"
-            />
+            <Image
+  src="/assets/website/hero.webp"
+  alt="Free Next.js SEO starter template with metadata, sitemap, and schema setup"
+  width={1200}
+  height={675}
+  priority
+  className="w-full h-auto"
+/>       
           </div>
 
           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-background to-transparent dark:from-background" />
