@@ -25,7 +25,7 @@ export default function DefaultFooter({
               <div key={col.title} className="space-y-3 md:space-y-4">
                 <h3 className="text-lg font-bold">{col.title}</h3>
                 {col.links.map((link) => (
-                  <Link key={link.href} href={link.href} className="flex">
+                  <Link key={link.href+ link.label} href={link.href} className="flex">
                     {link.label}
                   </Link>
                 ))}

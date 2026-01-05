@@ -68,7 +68,7 @@ export default function StandardSticky({
             >
               {content.links.map((l) => (
                 <Link
-                  key={l.href}
+                  key={l.href+ l.label}
                   href={l.href}
                   prefetch={false}
                   className={cn(
@@ -111,7 +111,7 @@ export default function StandardSticky({
               <SheetContent side="right">
                 <div className="grid gap-4 p-4">
                   {content.links.map((l) => (
-                    <SheetTrigger asChild key={l.href}>
+                    <SheetTrigger asChild key={l.href+ l.label}>
                       <Link
                         href={l.href}
                         className="flex items-center gap-2 text-lg font-medium"
