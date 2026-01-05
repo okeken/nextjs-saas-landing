@@ -4,8 +4,9 @@ import type {
   WebSite,
   SoftwareApplication,
   WithContext,
+  BlogPosting,
+  WebPage
 } from "schema-dts";
-
 
 export function organizationJsonLd(args?: {
   logoUrl?: string;
@@ -64,7 +65,7 @@ export function blogPostingJsonLd(args: {
   updatedAt?: string; // ISO
   authorName: string;
   image?: string; // absolute recommended
-}) {
+}):WithContext<BlogPosting> {
   return {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
@@ -93,7 +94,7 @@ export type PricingPlan = {
 export function pricingOfferCatalogJsonLd(args: {
   pageUrl: string; // absolute
   plans: PricingPlan[];
-}) {
+}):WithContext<WebPage> {
   const pageId = `${args.pageUrl}#webpage`;
   const catalogId = `${args.pageUrl}#offer-catalog`;
 
