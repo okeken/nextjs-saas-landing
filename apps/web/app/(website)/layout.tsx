@@ -35,6 +35,14 @@ export default function WebsiteLayout({
 }) {
   return (
     <>
+    <link
+  rel="preload"
+  href="/assets/website/hero.webp"
+  as="image"
+  type="image/webp"
+  fetchPriority="high"
+/>
+
      <Navbar />
       <JsonLd data={organizationJsonLd()} />
       <JsonLd data={websiteJsonLd()} />
