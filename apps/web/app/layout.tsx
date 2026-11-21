@@ -14,6 +14,11 @@ export const metadata: Metadata = {
     template: `%s | ${SITE.name}`,
   },
   description: SITE.tagline,
+  // Google Search Console, "HTML tag" method: set GOOGLE_SITE_VERIFICATION to
+  // the tag's content value and redeploy.
+  verification: process.env.GOOGLE_SITE_VERIFICATION
+    ? { google: process.env.GOOGLE_SITE_VERIFICATION }
+    : undefined,
 };
 
 const satoshi = localFont({

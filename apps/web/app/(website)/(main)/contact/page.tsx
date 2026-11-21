@@ -4,9 +4,14 @@ import Hero from "./_components/Hero";
 import Message from "./_components/Message";
 import { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "Contact US",
-};
+import { SITE } from "@/config";
+import { buildMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = buildMetadata({
+  title: "Contact us",
+  description: `Questions about ${SITE.name}? Send us a message and we'll get back to you.`,
+  canonical: "/contact",
+});
 
 const ContactPage = () => {
   return (

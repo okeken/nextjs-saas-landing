@@ -13,12 +13,15 @@ export default function robots(): MetadataRoute.Robots {
     };
   }
 
+  // Crawlers need /_next/ (CSS + JS) to render pages, and link-preview bots
+  // (X, LinkedIn, Slack) need /api/og for the share image. The longer
+  // "/api/og" allow wins over the "/api/" disallow.
   return {
     rules: [
       {
         userAgent: "*",
-        allow: "/",
-        disallow: ["/api/", "/dashboard/", "/app/", "/auth/", "/_next/"],
+        allow: ["/", "/api/og"],
+        disallow: ["/api/", "/dashboard/", "/app/", "/auth/"],
       },
     ],
     sitemap: `${base}/sitemap.xml`,

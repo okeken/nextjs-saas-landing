@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import type { NextWebVitalsMetric } from "next/app";
-import { SITE } from "@/config";
 import { JsonLd } from "./_components/seo/JsonLd";
 import {
   organizationJsonLd,
@@ -11,13 +10,9 @@ import Cookies from "@/components/Cookies";
 import Navbar from "./_components/Navbar";
 import Footer from "./_components/Footer";
 
+// Title, description and metadataBase come from the root layout. Defining the
+// title again here made the root template wrap it: "MySaas | MySaas".
 export const metadata: Metadata = {
-  metadataBase: new URL(SITE.url),
-  title: {
-    default: SITE.name,
-    template: `%s | ${SITE.name}`,
-  },
-  description: SITE.tagline,
   robots: { index: true, follow: true },
 };
 

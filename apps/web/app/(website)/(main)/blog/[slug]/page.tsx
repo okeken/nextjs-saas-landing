@@ -28,15 +28,16 @@ export async function generateMetadata({
   const description =
     post?.meta?.excerpt ??
     clamp(post.content) ??
-    `Read the latest insights from ${SITE}`;
+    `Read the latest insights from ${SITE.name}`;
 
+  // No `image`: the generated /api/og card (post title on brand colours)
+  // makes a better link preview than the author's small avatar.
   return buildMetadata({
     title: post.meta.title,
     description,
     canonical: `/blog/${slug}`,
     ogTheme: "light",
     ogType: "article",
-    image: toAbsoluteUrl(post?.meta?.authorImageSrc),
   });
 }
 

@@ -62,10 +62,13 @@ export function buildMetadata({
     theme: ogTheme,
   });
 
-  const ogImage = toAbsoluteUrl(image ?? defaultOg);
+  // `||`, not `??`: callers pass "" when a post has no image of its own.
+  const ogImage = toAbsoluteUrl(image || defaultOg);
 
   return {
-    title: fullTitle,
+    // absolute: the brand suffix is already in fullTitle, so the layout's
+    // "%s | Brand" template must not add it a second time.
+    title: { absolute: fullTitle },
     description,
     metadataBase: new URL(SITE.url),
 
@@ -82,7 +85,7 @@ export function buildMetadata({
     openGraph: {
       type: ogType,
       locale: SITE.locale,
-      url: canonicalUrl ?? SITE.url,
+      url: canonicalUrl || SITE.url,
       siteName: SITE.name,
       title: fullTitle,
       description,

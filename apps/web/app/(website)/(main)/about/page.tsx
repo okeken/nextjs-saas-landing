@@ -5,9 +5,14 @@ import Mission from "./_components/Mission";
 import Team from "./_components/Team";
 import { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "About US",
-};
+import { SITE } from "@/config";
+import { buildMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = buildMetadata({
+  title: "About us",
+  description: `Meet the team behind ${SITE.name} and the mission that drives what we build.`,
+  canonical: "/about",
+});
 
 const AboutPage = () => {
   return (

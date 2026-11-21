@@ -4,13 +4,16 @@ import Started from "@/app/(website)/_components/Started";
 import Compare from "./_components/Compare";
 import { Metadata } from "next";
 import { SITE } from "@/config";
+import { buildMetadata } from "@/lib/seo";
 import { JsonLd } from "../../_components/seo/JsonLd";
 import { pricingOfferCatalogJsonLd } from "@/lib/seo/schema";
 import Pricing from "../../_components/Pricing";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: "Pricing",
-};
+  description: `Simple, transparent pricing for ${SITE.name}. Compare plans and pick the one that fits your team.`,
+  canonical: "/pricing",
+});
 
 const pageUrl = new URL("/pricing", SITE.url).toString();
 
