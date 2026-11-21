@@ -6,7 +6,6 @@ node_modules
 !**/.env.example
 **/dist/
 **/build/
-pnpm-lock.yaml
 **/.note
 .DS_Store
 .idea
