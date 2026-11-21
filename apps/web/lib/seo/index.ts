@@ -10,6 +10,8 @@ export type BuildMetadataArgs = {
   noIndex?: boolean;
   ogTheme?: "light" | "dark";
   ogType?: "website" | "article";
+  /** Add " | Site name" to the title (default). Turn off for a keyword-led home page title. */
+  appendSiteName?: boolean;
 };
 
 export function toAbsoluteUrl(input?: string) {
@@ -50,10 +52,12 @@ export function buildMetadata({
   noIndex,
   ogTheme = "light",
   ogType = "website",
+  appendSiteName = true,
 }: BuildMetadataArgs): Metadata {
-  const fullTitle = title.includes(SITE.name)
-    ? title
-    : `${title} | ${SITE.name}`;
+  const fullTitle =
+    !appendSiteName || title.includes(SITE.name)
+      ? title
+      : `${title} | ${SITE.name}`;
 
   const canonicalUrl = normalizeCanonical(canonical);
   const defaultOg = buildOgUrl({
