@@ -1,27 +1,24 @@
-# SEO Next.js Starter – Next.js SaaS Landing Page Template
+# Next.js SaaS Landing Page Template (free, SEO-ready)
 
-A production-ready SaaS landing page built with **Next.js App Router**, **Tailwind CSS**, and **TypeScript** — with **SEO correctness**, a **professional UI design system**, and a **monorepo-friendly** structure baked in.
+A production-ready SaaS landing page built with **Next.js 16 (App Router)**, **Tailwind CSS v4**, **shadcn/ui** and **TypeScript**, with **SEO done properly**, a **professional UI design system**, and a **monorepo-friendly** structure baked in.
 
-**Clone it, customise it, ship it.**
+**[Live demo](https://nextjs-saas-landing-pag.vercel.app)** · [Fork it](https://github.com/okeken/nextjs-saas-landing/fork) · [Report a bug](https://github.com/okeken/nextjs-saas-landing/issues)
 
-> If this repo saves you time, please ⭐️ **star it** — it helps others discover it.
+> If this repo saves you time, please ⭐️ **star it**. It helps other builders find it.
 
----
-
-| Light                                                                                                                                               | Dark                                                                                                                                                |
-| --------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ![Light Mode](https://raw.githubusercontent.com/okeken/nextjs-saas-landing/refs/heads/main/apps/web/public/screenshots/nextjs-seo-landing-page.png) | ![Dark Mode](https://raw.githubusercontent.com/okeken/nextjs-saas-landing/refs/heads/main/apps/web/public/screenshots/nextjs-seo-template-dark.png) |
+| Light | Dark |
+| ----- | ---- |
+| ![Next.js SaaS landing page template, light mode](https://raw.githubusercontent.com/okeken/nextjs-saas-landing/refs/heads/main/apps/web/public/screenshots/nextjs-seo-landing-page.png) | ![Next.js SaaS landing page template, dark mode](https://raw.githubusercontent.com/okeken/nextjs-saas-landing/refs/heads/main/apps/web/public/screenshots/nextjs-seo-template-dark.png) |
 
 ---
 
-## 1-minute local setup
+## Quick start
 
-### Requirements
+Requirements: **Node.js 20+** and **pnpm** (run `corepack enable` if you don't have it).
 
-* Node.js >= 20
-* pnpm (recommended via Corepack)
+**Option A: start your own copy.** Click **Use this template** (or [fork the repo](https://github.com/okeken/nextjs-saas-landing/fork)), then clone your new repo.
 
-### Run it
+**Option B: clone this one.**
 
 ```bash
 git clone https://github.com/okeken/nextjs-saas-landing.git
@@ -30,29 +27,7 @@ pnpm install
 pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000)
-
-> If you got it running in under 1 minute, consider ⭐️ starring the repo 🙂
-
----
-
-## Use This Template 
-
-Fork this repo and make changes:
-
-[https://github.com/okeken/nextjs-saas-landing/fork](https://github.com/okeken/nextjs-saas-landing/fork)
-
-### Option B — Clone
-
-```bash
-git clone https://github.com/okeken/nextjs-saas-landing.git
-```
-
----
-
-## About This Template
-
-The SEO Next.js Starter helps you quickly set up a robust, SEO-friendly web application using Next.js App Router. It prioritises search engine fundamentals, performance, and a strong UI system so you can move fast without cutting corners.
+Open [http://localhost:3000](http://localhost:3000). No environment variables are needed to run it; see [Environment variables](#environment-variables) when you're ready to brand it.
 
 ---
 
@@ -60,150 +35,105 @@ The SEO Next.js Starter helps you quickly set up a robust, SEO-friendly web appl
 
 ### SEO-first architecture
 
-* App Router Metadata API (layout and page metadata)
-* Correct Open Graph & Twitter cards
-* `robots.ts` and `sitemap.ts` out of the box
-* Crawl-safe layout structure and performance-friendly defaults
+* Every page has a title, description, canonical URL, Open Graph and Twitter card tags, built by one helper (`apps/web/lib/seo`)
+* A generated share image for every page and blog post (`/api/og`)
+* `robots.ts` and `sitemap.ts` out of the box, with correct absolute URLs on Vercel even before you set your domain
+* JSON-LD structured data (Organization, WebSite, SoftwareApplication, pricing offers, blog posts)
+* Google Search Console verification through one environment variable
 
 ### Next.js 16 ready
 
-* Built and tested against Next.js 16 (App Router)
-* Uses stable Metadata API, `robots.ts`, `sitemap.ts`
+* Built and tested against Next.js 16 (App Router), React 19
+* Uses the stable Metadata API, `robots.ts`, `sitemap.ts`, `next/og`
 
 ### Professional UI design system
 
 * Radix UI primitives (accessibility-first)
-* Tailwind CSS with `class-variance-authority` and `tailwind-merge`
-* Icon system with Lucide
+* Tailwind CSS v4 with `class-variance-authority` and `tailwind-merge`
+* Icons from Lucide
 * Forms via React Hook Form + Zod
-* Dark / light mode support
+* Dark / light mode
 
 ### Monorepo-friendly
 
-* Turborepo / pnpm workspace structure
-* Shared UI package `@metallicjs/ui`
-* Shared utilities & types
-* Storybook for isolated UI development
+* Turborepo / pnpm workspace
+* Shared UI package (`packages/ui`, imported as `@metallicjs/ui`) with Storybook
+* Shared utilities, ESLint and TypeScript configs (`packages/shared`)
 
-### DX & Tooling
+### DX & tooling
 
-* TypeScript (strict), ESLint, Prettier
-* Storybook 9 (Vite) – runs independently of Next.js
+* TypeScript (strict), ESLint, Prettier, Husky, lint-staged, commitlint
+* Storybook 9 (Vite), runs independently of Next.js
 * Ready for Vitest/Playwright (add tests as needed)
 
 ---
 
-## Getting Started
+## Included pages & sections
 
-1. Prerequisites
+* Navbar, Hero, Features, Pricing, Testimonials, FAQ, CTA, Footer
+* Pricing page with a plan comparison
+* Blog (MDX) with post pages, related posts and share links
+* About, Contact, Privacy Policy, Terms of Service
 
-* Node.js >= 20
-* pnpm (enforced via preinstall). If needed, enable Corepack: `corepack enable`
+You can remove or replace sections freely; nothing is tightly coupled.
 
-2. Install and run
+---
 
-```bash
-pnpm install
-pnpm dev
-```
+## Environment variables
 
-Open [http://localhost:3000](http://localhost:3000)
+All optional. Put them in `apps/web/.env.local` for local development (copy `apps/web/.env.example`), or in your host's settings (Vercel: Settings → Environment Variables, then redeploy).
 
-3. Storybook (UI package)
+| Variable | Used for | Default |
+| --- | --- | --- |
+| `NEXT_PUBLIC_SITE_URL` | Canonical URLs, sitemap, robots.txt, share images. No trailing slash. | Your Vercel production domain, or `http://localhost:3000` |
+| `NEXT_PUBLIC_SITE_NAME` | Brand name in titles, share images and the footer | `MySaas` |
+| `NEXT_PUBLIC_TAG_LINE` | Default description and share-image footer | `Production-ready marketing system` |
+| `NEXT_PUBLIC_TWITTER_HANDLE` | `twitter:creator` tag | empty |
+| `NEXT_PUBLIC_CURRENCY` | Currency in pricing structured data | `USD` |
+| `GOOGLE_SITE_VERIFICATION` | Google Search Console "HTML tag" verification | not set |
+
+The values are read in `apps/web/config/index.ts`, which defines the `SITE` constants used across the app.
+
+---
+
+## Deploy
+
+On Vercel: import your repo, set **Root Directory** to `apps/web` (Vercel installs the whole pnpm workspace for you), and deploy. Add the environment variables above whenever you're ready.
+
+### Get indexed by Google
+
+1. In [Google Search Console](https://search.google.com/search-console), add your site as a **URL prefix** property and pick the **HTML tag** method.
+2. Copy the tag's `content` value into `GOOGLE_SITE_VERIFICATION` and redeploy, then click **Verify**.
+3. Submit `https://your-domain/sitemap.xml` under **Sitemaps**.
+
+---
+
+## Technical details
+
+### Metadata
+
+* `apps/web/lib/seo/index.ts`: `buildMetadata()` returns the title, description, canonical, Open Graph and Twitter tags for a page. Every page uses it.
+* `apps/web/app/robots.ts`: blocks crawling outside production; in production it allows everything except `/api/` (but keeps `/api/og` open for link previews).
+* `apps/web/app/sitemap.ts`: static routes plus MDX blog posts with accurate `lastModified`.
+
+### Open Graph image generation
+
+* Uses the built-in Next.js OG Image API (`next/og`) at `/api/og`
+* Query params:
+  * `title`: overrides the default title (clamped to 70 chars)
+  * `subtitle`: optional secondary text (clamped to 120 chars)
+  * `theme`: `dark` | `light` (defaults to `dark`)
+* Example: `/api/og?title=Hello&subtitle=World&theme=light`
+* Colours come from your design tokens: `pnpm gen:og` (run automatically by `pnpm dev`) reads `packages/ui` styles.
+
+### Storybook (UI package)
 
 ```bash
 cd packages/ui
 pnpm storybook
 ```
 
-Open [http://localhost:6006](http://localhost:6006)
-
-4. Configure environment variables
-
-* Copy the example env file and fill in your values:
-
-```bash
-cp apps/web/.env.example apps/web/.env.local
-```
-
-* Variables:
-
-  * NEXT_PUBLIC_SITE_URL
-  * NEXT_PUBLIC_SITE_NAME
-  * NEXT_PUBLIC_TWITTER_HANDLE
-  * NEXT_PUBLIC_TAG_LINE
-  * NEXT_PUBLIC_CURRENCY (optional, defaults to USD)
-
-5. Optional: edit config directly
-
-* `apps/web/config/index.ts` reads from env and defines `SITE` constants used across the app.
-
----
-
-## Environment Variables
-
-These are read by the app and used to generate metadata, OG images, robots, and sitemap:
-
-```ini
-# public site url (no trailing slash in production)
-NEXT_PUBLIC_SITE_URL=http://localhost:3000
-
-# your product/brand name
-NEXT_PUBLIC_SITE_NAME=MySaas
-
-# your Twitter/X handle (optional)
-NEXT_PUBLIC_TWITTER_HANDLE=@mysaas
-
-# short tagline used in OG image/footer
-NEXT_PUBLIC_TAG_LINE=Production-ready marketing system
-
-# optional currency code used in pricing/components
-NEXT_PUBLIC_CURRENCY=USD
-```
-
-Place them in `apps/web/.env.local` (for local dev) or configure them in your hosting provider (e.g., Vercel) for production.
-
-### Vercel Environment Variables
-
-1. Open your project in Vercel
-2. Settings → Environment Variables
-3. Add the keys above with appropriate values
-4. Redeploy to apply changes
-
----
-
-## Technical Details
-
-### Metadata management
-
-* App Router metadata is defined via layout/page exports and dedicated files:
-
-  * `apps/web/app/robots.ts` – disallows crawling in non-production; sets sitemap and host
-  * `apps/web/app/sitemap.ts` – generates entries for static routes and MDX blog posts with accurate `lastModified`
-  * `apps/web/app/layout.tsx` and route-level metadata exports
-
-### Open Graph image generation
-
-* Uses the built-in Next.js OG Image API (`next/og`)
-* Endpoint: `/api/og`
-* Query params:
-
-  * `title` – overrides the default title (clamped to 70 chars)
-  * `subtitle` – optional secondary text (clamped to 120 chars)
-  * `theme` – `dark` | `light` (defaults to `dark`)
-* Example:
-
-  * `/api/og?title=Hello&subtitle=World&theme=light`
-
----
-
-## Included pages & sections
-
-* Navbar, Hero, Features, CTA, Footer
-* Pricing page example
-* Blog (MDX) scaffold
-
-You can remove or replace sections freely — nothing is tightly coupled.
+Open [http://localhost:6006](http://localhost:6006).
 
 ---
 
@@ -214,26 +144,29 @@ apps/
   web/                # SaaS marketing site (Next.js App Router)
 
 packages/
-  ui/                 # @metallicjs/ui (design system)
+  ui/                 # design system, imported as @metallicjs/ui
     components/
     hooks/
     lib/
     styles/
 
-  shared/             # shared utilities & types
+  shared/             # shared utilities, ESLint + TypeScript configs
 ```
 
 ---
 
 ## Customisation
 
-Common places you’ll edit:
+Common places you'll edit:
 
-* `apps/web/app/(website)/page.tsx` – landing page content
-* `apps/web/app/(website)/layout.tsx` – metadata & layout
-* `apps/web/app/(website)/_components` – UI sections
-* `apps/web/public` – images, favicons
-* `packages/ui` – shared components/styles (used across apps)
+* `apps/web/app/(website)/page.tsx`: home page title and description (search results and link previews)
+* `apps/web/app/(website)/(main)/one/`: landing page sections
+* `apps/web/app/(website)/_components`: shared UI sections (Hero, Navbar, Footer, ...)
+* `apps/web/config/index.ts`: site constants, and `TEMPLATE_LINKS`, where the demo's buttons point. Change these to your own sign-up or product links.
+* `apps/web/public`: images, favicons
+* `packages/ui`: shared components and styles
+
+The footer shows a small "Built with" link to this repo. Keeping it is optional (and appreciated); delete `credit` in `apps/web/app/(website)/_components/Footer/data.ts` to remove it.
 
 ---
 
@@ -245,8 +178,6 @@ Issues and pull requests are welcome. If you spot something incorrect or missing
 
 ## License
 
-MIT License © 2025
+MIT License © 2025 Kehinde Oke
 
----
-
-Made with care by an indie builder. If this helps, a ⭐️ helps others discover it!
+If this template helped you ship, a ⭐️ helps others discover it.
