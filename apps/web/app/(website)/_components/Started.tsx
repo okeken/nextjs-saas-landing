@@ -1,13 +1,17 @@
 import { Button } from "@metallicjs/ui/components/button";
 
+import { TEMPLATE_LINKS } from "@/config";
+
 const Started = ({
   subtitle = "A clean, SEO-ready Next.js SaaS website foundation you can adapt to your product.",
   title = "Start with a solid SaaS website.",
   buttonText = "Use the Template",
+  buttonHref = TEMPLATE_LINKS.repo,
 }: {
   title?: string;
   subtitle?: string;
   buttonText?: string;
+  buttonHref?: string;
 }) => {
   return (
     <section className="px-4 md:px-8 lg:px-12 my-6 md:my-10 lg:my-14">
@@ -20,7 +24,9 @@ const Started = ({
           <p className="text-sm sm:text-base text-muted-foreground">
             {subtitle}
           </p>
-          <Button>{buttonText}</Button>
+          <Button asChild>
+            <a href={buttonHref}>{buttonText}</a>
+          </Button>
         </div>
       </div>
     </section>

@@ -15,7 +15,41 @@ import {
 } from "@metallicjs/ui/components/sheet";
 import { cn } from "@metallicjs/ui/lib/utils";
 
-import type { NavbarContent } from "./types";
+import type { NavbarContent, NavCta } from "./types";
+
+function NavCtaButton({
+  cta,
+  variant,
+  size,
+  className,
+}: {
+  cta: NavCta;
+  variant?: NavCta["variant"];
+  size?: "sm" | "default";
+  className?: string;
+}) {
+  const Icon = cta.icon;
+  const inner = (
+    <>
+      {Icon ? <Icon aria-hidden /> : null}
+      {cta.label}
+    </>
+  );
+
+  if (!cta.href) {
+    return (
+      <Button variant={variant} size={size} className={className}>
+        {inner}
+      </Button>
+    );
+  }
+
+  return (
+    <Button asChild variant={variant} size={size} className={className}>
+      <a href={cta.href}>{inner}</a>
+    </Button>
+  );
+}
 
 export default function StandardSticky({
   content,
@@ -82,9 +116,10 @@ export default function StandardSticky({
             </div>
 
             {content.cta ? (
-              <Button variant={content.cta.variant ?? "default"}>
-                {content.cta.label}
-              </Button>
+              <NavCtaButton
+                cta={content.cta}
+                variant={content.cta.variant ?? "default"}
+              />
             ) : null}
 
             {content.showThemeSwitcher ? (
@@ -95,9 +130,11 @@ export default function StandardSticky({
           {/* Mobile */}
           <div className="lg:hidden flex items-center gap-1 xsm:gap-2">
             {content.cta ? (
-              <Button className="px-2 xsm:px-4" size="sm">
-                {content.cta.label}
-              </Button>
+              <NavCtaButton
+                cta={content.cta}
+                className="px-2 xsm:px-4"
+                size="sm"
+              />
             ) : null}
 
             <Sheet open={open} onOpenChange={setOpen}>

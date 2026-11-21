@@ -89,25 +89,40 @@ function Button({
   fullWidth,
   isLoading,
   loading,
+  children,
   ...props
 }: ButtonProps) {
-  const Comp = asChild ? Slot : "button";
   const pending = isLoading ?? loading ?? false;
+  const classes = cn(
+    buttonVariants({ variant, size, fullWidth, loading: pending }),
+    className
+  );
+
+  // Slot needs exactly one child element, so the spinner is button-only.
+  if (asChild) {
+    return (
+      <Slot
+        data-slot="button"
+        aria-busy={pending || undefined}
+        className={classes}
+        {...props}
+      >
+        {children}
+      </Slot>
+    );
+  }
 
   return (
-    <Comp
+    <button
       data-slot="button"
       aria-busy={pending || undefined}
-      disabled={(props as any).disabled || pending}
-      className={cn(
-        buttonVariants({ variant, size, fullWidth, loading: pending }),
-        className
-      )}
+      disabled={props.disabled || pending}
+      className={classes}
       {...props}
     >
       {pending && <Loader2Icon className="animate-spin" />}
-      {props.children}
-    </Comp>
+      {children}
+    </button>
   );
 }
 

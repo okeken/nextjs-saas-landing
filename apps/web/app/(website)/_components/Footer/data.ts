@@ -1,7 +1,7 @@
 import FacebookLogo from "@/public/assets/website/fb-logo.svg";
 import InstagramLogo from "@/public/assets/website/ig-logo.svg";
 import XLogo from "@/public/assets/website/x-logo.svg";
-import { SITE } from "@/config";
+import { SITE, TEMPLATE_LINKS } from "@/config";
 
 import type {
   SimpleLinksBarContent,
@@ -63,4 +63,9 @@ export const defaultFooterData: DefaultFooterContent = {
     ],
   },
   copyright: `© ${new Date().getFullYear()} ${SITE.name}. All rights reserved.`,
+  // Keeping this link is optional, and appreciated: it's how other builders find the template.
+  credit: {
+    label: "Built with the Next.js SaaS Landing template",
+    href: TEMPLATE_LINKS.repo,
+  },
 };

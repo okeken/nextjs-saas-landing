@@ -58,6 +58,17 @@ export default function DefaultFooter({
 
         <div className="text-center pt-4 md:pt-6 p-2 md:p-4 text-sm">
           {content.copyright}
+          {content.credit ? (
+            <>
+              {" · "}
+              <a
+                href={content.credit.href}
+                className="underline underline-offset-4 hover:opacity-80"
+              >
+                {content.credit.label}
+              </a>
+            </>
+          ) : null}
         </div>
       </div>
     </footer>

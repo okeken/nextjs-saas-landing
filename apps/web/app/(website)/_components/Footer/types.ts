@@ -25,4 +25,6 @@ export type DefaultFooterContent = {
     socials?: SocialLink[];
   };
   copyright: string;
+  /** Optional "Built with" link next to the copyright. Delete it from data.ts to hide it. */
+  credit?: { label: string; href: string };
 };

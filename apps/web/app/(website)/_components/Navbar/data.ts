@@ -1,3 +1,7 @@
+import { Github } from "lucide-react";
+
+import { TEMPLATE_LINKS } from "@/config";
+
 import type { NavbarContent } from "./types";
 
 export const navbarData: NavbarContent = {
@@ -8,6 +12,6 @@ export const navbarData: NavbarContent = {
     { href: "/pricing", label: "Pricing" },
     { href: "/blog", label: "Blogs" },
   ],
-  cta: { label: "Get it Now" },
+  cta: { label: "Star on GitHub", href: TEMPLATE_LINKS.repo, icon: Github },
   showThemeSwitcher: true,
 };

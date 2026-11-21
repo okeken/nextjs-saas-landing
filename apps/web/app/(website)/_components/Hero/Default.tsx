@@ -1,6 +1,9 @@
 import { Button } from "@metallicjs/ui/components/button";
 import { cn } from "@metallicjs/ui/lib/utils";
+import { Star } from "lucide-react";
 import Image from "next/image";
+
+import { TEMPLATE_LINKS } from "@/config";
 
 export default function MarketingClean() {
   return (
@@ -50,11 +53,15 @@ export default function MarketingClean() {
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4 mt-4 lg:mt-6">
-            <Button className="shadow-sm dark:shadow-[0_10px_30px_-20px_rgba(0,0,0,0.9)]">
-              Get the Template
+            <Button
+              asChild
+              className="shadow-sm dark:shadow-[0_10px_30px_-20px_rgba(0,0,0,0.9)]"
+            >
+              <a href={TEMPLATE_LINKS.repo}>Get the Template</a>
             </Button>
 
             <Button
+              asChild
               variant="outline"
               className={cn(
                 "bg-background/60 backdrop-blur border-border/70",
@@ -62,7 +69,10 @@ export default function MarketingClean() {
                 "dark:bg-background/30 dark:border-border/50 dark:hover:bg-muted/40"
               )}
             >
-              View Live Demo
+              <a href={TEMPLATE_LINKS.repo}>
+                <Star aria-hidden="true" />
+                Star on GitHub
+              </a>
             </Button>
           </div>
         </div>
