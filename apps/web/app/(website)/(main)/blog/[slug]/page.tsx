@@ -12,8 +12,20 @@ import { clamp } from "@/lib/clamp";
 import { blogPostingJsonLd } from "@/lib/seo/schema";
 import { JsonLd } from "@/app/(website)/_components/seo/JsonLd";
 
+// Drafts (frontmatter `draft: true`) render under `pnpm dev` so you can
+// preview them, but a production build neither builds nor serves them.
+const hideDrafts = process.env.NODE_ENV === "production";
+
+function getVisiblePost(slug: string) {
+  const post = getBlogPostBySlug(slug);
+  if (!post || (hideDrafts && post.meta.draft)) return null;
+  return post;
+}
+
 export async function generateStaticParams() {
-  return getAllBlogSlugs().map((slug) => ({ slug }));
+  return getAllBlogSlugs()
+    .filter((slug) => getVisiblePost(slug))
+    .map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({
@@ -22,7 +34,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const post = getBlogPostBySlug(slug);
+  const post = getVisiblePost(slug);
   if (!post) return buildMetadata({ title: "Not found", noIndex: true });
 
   const description =
@@ -48,7 +60,7 @@ export default async function BlogPostPage({
 }) {
   const { slug } = await params;
 
-  const post = getBlogPostBySlug(slug);
+  const post = getVisiblePost(slug);
   if (!post) notFound();
 
   const {
